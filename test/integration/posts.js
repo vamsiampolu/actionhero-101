@@ -1,4 +1,3 @@
-debugger
 console.log('Inside posts')
 const request = require('request')
 const should = require('should')
@@ -7,10 +6,7 @@ console.log('SETUP FN', setup)
 
 describe('Integration Test - Posts', function () {
   before(function (done) {
-    debugger
     setup.init(function () {
-      debugger
-      console.log('Init of posts')
       const url = `${setup.testUrl}/userAdd`
       const payload = {
         form: {
@@ -27,7 +23,6 @@ describe('Integration Test - Posts', function () {
 
   describe('Actions - posts', function () {
     it('can add a post', function (done) {
-      debugger
       const url = `${setup.testUrl}/postAdd`
       const payload = {
         form: {
@@ -38,7 +33,6 @@ describe('Integration Test - Posts', function () {
         }
       }
       request.post(url, payload, function (error, response, body) {
-        debugger
         should.not.exist(error)
         body = JSON.parse(body)
         should.not.exist(body.error)
@@ -47,7 +41,6 @@ describe('Integration Test - Posts', function () {
     })
 
     it('shows the post in the list of posts for the user', function (done) {
-      debugger
       const url = `${setup.testUrl}/postsList`
       const payload = {
         form: {
@@ -72,17 +65,16 @@ describe('Integration Test - Posts', function () {
           username: 'coolPoster'
         }
       }
-      request(url, payload, function (error, response, body) {
+      request.post(url, payload, function (error, response, body) {
         should.not.exist(error)
         body = JSON.parse(body)
-        body.posts.should.not.containEq('Post Title')
         should.not.exist(body.error)
         done()
       })
     })
 
     it('allows viewing a post', function (done) {
-      const url = `${request.testUrl}/postView`
+      const url = `${setup.testUrl}/postView`
       const payload = {
         form: {
           username: 'test-poster',
@@ -90,7 +82,7 @@ describe('Integration Test - Posts', function () {
           title: 'Post Title'
         }
       }
-      request(url, payload, function (error, response, body) {
+      request.post(url, payload, function (error, response, body) {
         should.not.exist(error)
         body = JSON.parse(body)
         body.post.title.should.equal('Post Title')

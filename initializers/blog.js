@@ -32,6 +32,7 @@ module.exports = {
         })
       },
       postsList: function (username, next) {
+        debugger
         const {postPrefix, seperator} = this
         const search = `${postPrefix}${seperator}${username}${seperator}*`
         redis.keys(search, (error, keys) => {
