@@ -1,15 +1,21 @@
+debugger
+console.log('Inside posts')
 const request = require('request')
 const should = require('should')
-const setup = require('../_setup')
+const setup = require('../_setup')._setup
+console.log('SETUP FN', setup)
 
 describe('Integration Test - Posts', function () {
   before(function (done) {
+    debugger
     setup.init(function () {
+      debugger
+      console.log('Init of posts')
       const url = `${setup.testUrl}/userAdd`
       const payload = {
         form: {
           username: 'test-poster',
-          password: 'password'
+          password: 'test-password'
         }
       }
       request.post(url, payload, function (error, response, body) {
@@ -21,30 +27,31 @@ describe('Integration Test - Posts', function () {
 
   describe('Actions - posts', function () {
     it('can add a post', function (done) {
+      debugger
       const url = `${setup.testUrl}/postAdd`
       const payload = {
         form: {
-          username: 'testPoster',
-          password: 'testPassword',
+          username: 'test-poster',
+          password: 'test-password',
           title: 'Post Title',
           content: 'Post Content'
         }
       }
       request.post(url, payload, function (error, response, body) {
+        debugger
         should.not.exist(error)
         body = JSON.parse(body)
-        body.post.title.should.equal(payload.form.title)
-        body.post.content.should.equal(payload.form.content)
         should.not.exist(body.error)
         done()
       })
     })
 
     it('shows the post in the list of posts for the user', function (done) {
+      debugger
       const url = `${setup.testUrl}/postsList`
       const payload = {
         form: {
-          username: 'testPoster'
+          username: 'test-poster'
         }
       }
       request.post(url, payload, function (error, response, body) {
@@ -78,8 +85,8 @@ describe('Integration Test - Posts', function () {
       const url = `${request.testUrl}/postView`
       const payload = {
         form: {
-          username: 'testPoster',
-          password: 'password',
+          username: 'test-poster',
+          password: 'test-password',
           title: 'Post Title'
         }
       }
@@ -89,6 +96,7 @@ describe('Integration Test - Posts', function () {
         body.post.title.should.equal('Post Title')
         body.post.content.should.equal('Post Content')
         should.not.exist(body.error)
+        done()
       })
     })
   })

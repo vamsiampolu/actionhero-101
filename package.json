@@ -8,15 +8,16 @@
   },
   "dependencies": {
     "actionhero": "17.0.3",
-    "ws": "latest",
     "fakeredis": "latest",
-    "ioredis": "latest"
+    "ioredis": "latest",
+    "ws": "latest"
   },
   "devDependencies": {
     "chai": "^4.1.1",
     "cross-env": "latest",
     "dirty-chai": "latest",
     "mocha": "^3.5.0",
+    "request": "^2.81.0",
     "should": "^11.2.1",
     "standard": "latest"
   },
@@ -24,7 +25,8 @@
     "start": "actionhero start",
     "actionhero": "actionhero",
     "pretest": "standard",
-    "test": "cross-env NODE_ENV=test mocha"
+    "test": "cross-env NODE_ENV=test mocha",
+    "test:inspect": "cross-env NODE_ENV=test mocha --inspect-brk"
   },
   "standard": {
     "ignore": [

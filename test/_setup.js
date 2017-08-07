@@ -10,8 +10,11 @@ exports._setup = {
           callback(error)
         }
         this.api = api
+        console.log('Calling done')
         callback()
       })
+    } else {
+      callback()
     }
   }
 }

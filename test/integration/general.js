@@ -13,6 +13,7 @@ describe('Integration Tests', function (done) {
       should.not.exist(error)
       body = JSON.parse(body)
       body.error.should.equal('unknown action or invalid apiVersion')
+      console.log('Calling done')
       done()
     })
   })
