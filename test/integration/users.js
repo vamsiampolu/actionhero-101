@@ -9,7 +9,7 @@ describe('Integration tests - User', function () {
 
   describe('Users', function () {
     it('allows for creating a user', function (done) {
-      const url = `${request.testUrl}/userAdd`
+      const url = `${setup.testUrl}/userAdd`
       const payload = {
         form: {
           username: 'evan',
@@ -25,7 +25,7 @@ describe('Integration tests - User', function () {
     })
 
     it('disallows creation of a duplicate user', function (done) {
-      const url = `${request.testUrl}/userAdd`
+      const url = `${setup.testUrl}/userAdd`
       const payload = {
         form: {
           username: 'evan',
@@ -41,7 +41,7 @@ describe('Integration tests - User', function () {
     })
 
     it('allows logging in with the correct credentials', function (done) {
-      const url = `${request.testUrl}/authenticate`
+      const url = `${setup.testUrl}/authenticate`
       const payload = {
         form: {
           username: 'evan',
@@ -58,19 +58,19 @@ describe('Integration tests - User', function () {
     })
 
     it('disallows login if credentials are incorrect', function (done) {
-      const url = `${request.testUrl}/authenticate`
+      const url = `${setup.testUrl}/authenticate`
       const payload = {
         form: {
-          username: 'seven',
+          username: 'evan',
           password: 'plusward'
         }
       }
       request.post(url, payload, function (error, response, body) {
+        debugger
         should.not.exist(error)
         body = JSON.parse(body)
         body.authenticated.should.equal(false)
-        body.error.should.equal('unable to log in')
-        should.not.exist(body.error)
+        body.error.should.equal('Unable to log in')
         done()
       })
 
