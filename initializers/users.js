@@ -40,8 +40,9 @@ module.exports = {
         const {usersHash} = this
         redis.hgetall(usersHash, function (error, users) {
           let userData = []
-          for (let user of users) {
-            userData.push(JSON.parse(user))
+          console.log('USERS', users)
+          for (let i in users) {
+            userData.push(JSON.parse(users[i]))
           }
           next(error, userData)
         })
